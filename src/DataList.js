@@ -5,9 +5,9 @@ const App = () => {
   const [goods, setGoods] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/goods')
+    axios.get('http://localhost:5000/goods')
       .then(response => {
-        console.log(response.data); // Добавьте это для проверки данных
+        console.log(response.data); 
         setGoods(response.data);
       })
       .catch(error => {
@@ -28,12 +28,12 @@ const App = () => {
           </tr>
         </thead>
         <tbody>
-          {goods.map(good => (
-            <tr key={good.product_id}>
-              <td>{good.product_id}</td>
-              <td>{good.product_name}</td>
-              <td>{good.category_name}</td>
-              <td>{good.price}</td>
+          {goods.map(goods => (
+            <tr key={goods.product_id}>
+              <td>{goods.product_id}</td>
+              <td>{goods.product_name}</td>
+              <td>{goods.category_name}</td>
+              <td>{goods.price}</td>
             </tr>
           ))}
         </tbody>
