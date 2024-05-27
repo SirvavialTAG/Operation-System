@@ -1,0 +1,50 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: pg
+    image: "postgres:16"
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'astro20B'
+      POSTGRES_DB: 'DataBase1'
+    ports:
+      - 5432:5432
+    volumes:
+      - ./server/database.sql:/docker-entrypoint-initdb.d/init-database.sql
+    networks:
+      - mynetwork
+  server:
+    build:
+      dockerfile: Dockerfile
+      context: "./server"
+    depends_on:
+      - postgres
+    networks:
+      - mynetwork
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    ports:
+      - "5000:5000"
+    environment:
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=astro20B
+      - POSTGRES_DB=DataBase1
+  frontend:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./:/app
+    networks:
+      - mynetwork
+    ports:
+      - "3000:3000"
+networks:
+  mynetwork:
+    driver: bridge
