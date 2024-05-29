@@ -6,9 +6,6 @@ CREATE TABLE goods(
 );
 
 INSERT INTO goods (Product_Name, Category_Name, Price) VALUES 
-('product1','category1', 155),
-('product2','category1', 222),
-('prosuct3','category2', 34);
-
-
-
+('Мужская зимняя куртка Nike','1', 12000.00),
+('Молоко, 1л','2', 110.0),
+('Парацетамол, 500 мг','3', 30.00);
